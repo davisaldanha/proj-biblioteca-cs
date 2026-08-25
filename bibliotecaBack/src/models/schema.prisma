@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model autor {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nome            String        @db.VarChar(100)
+  nascionalidade  String        @db.VarChar(50)
+  data_nascimento String?       @db.VarChar(25)
+  livro_autor     livro_autor[]
+}
+
+model categoria {
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nome      String  @unique @db.VarChar(100)
+  descricao String?
+  livro     livro[]
+}
+
+model devolucao {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  exemplar_id    String    @db.Uuid
+  data_devolucao DateTime? @default(now()) @db.Timestamp(6)
+  funcionario_id String    @db.Uuid
+  situacao       String?   @db.VarChar(100)
+  exemplar       exemplar  @relation(fields: [exemplar_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_exemplar_devolucao")
+  usuario        usuario   @relation(fields: [funcionario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_funcionario_devolucao")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model emprestimo {
+  id                                         String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  usuario_id                                 String                @db.Uuid
+  funcionario_id                             String                @db.Uuid
+  data_emprestimo                            DateTime?             @default(now()) @db.Timestamp(6)
+  data_devolucao_prev                        String                @db.VarChar(25)
+  data_devolucao                             String?               @db.VarChar(25)
+  estado_conservacao                         String                @db.VarChar(25)
+  status                                     String?               @default("Em aberto") @db.VarChar(25)
+  usuario_emprestimo_funcionario_idTousuario usuario               @relation("emprestimo_funcionario_idTousuario", fields: [funcionario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_funcionario_emprestimo")
+  usuario_emprestimo_usuario_idTousuario     usuario               @relation("emprestimo_usuario_idTousuario", fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuario_emprestimo")
+  emprestimo_exemplar                        emprestimo_exemplar[]
+}
+
+model emprestimo_exemplar {
+  id            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  emprestimo_id String     @db.Uuid
+  exemplar_id   String     @db.Uuid
+  emprestimo    emprestimo @relation(fields: [emprestimo_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_emprestimo_exemplar")
+  exemplar      exemplar   @relation(fields: [exemplar_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_exemplar_emprestimo")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model exemplar {
+  id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  cod_identificacao   Int
+  livro_id            String                @db.Uuid
+  data_aquisicao      String?               @db.VarChar(25)
+  estado_conservacao  String?               @db.VarChar(50)
+  status              String?               @default("Disponivel") @db.VarChar(50)
+  devolucao           devolucao[]
+  emprestimo_exemplar emprestimo_exemplar[]
+  livro               livro                 @relation(fields: [livro_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_livro_exemplar")
+}
+
+model livro {
+  id             String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  isbn           Int           @unique
+  titulo         String        @db.VarChar(100)
+  ano_publicacao Int
+  edicao         String?       @db.VarChar(100)
+  editora        String?       @db.VarChar(100)
+  categoria_id   String        @db.Uuid
+  descricao      String?
+  exemplar       exemplar[]
+  categoria      categoria     @relation(fields: [categoria_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_categoria_livro")
+  livro_autor    livro_autor[]
+}
+
+model livro_autor {
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  livro_id String @db.Uuid
+  autor_id String @db.Uuid
+  autor    autor  @relation(fields: [autor_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_autor_livro")
+  livro    livro  @relation(fields: [livro_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_livro_autor")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model usuario {
+  id                                            String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nome                                          String       @db.VarChar(100)
+  cpf                                           String       @unique @db.VarChar(15)
+  email                                         String       @unique @db.VarChar(100)
+  senha                                         String
+  telefone                                      String       @db.VarChar(25)
+  data_nascimento                               String?      @db.VarChar(25)
+  endereco                                      String?      @db.VarChar(100)
+  data_cadastro                                 DateTime?    @default(now()) @db.Timestamp(6)
+  status                                        String?      @default("ativo") @db.VarChar(50)
+  perfil                                        String?      @default("atendente") @db.VarChar(50)
+  devolucao                                     devolucao[]
+  emprestimo_emprestimo_funcionario_idTousuario emprestimo[] @relation("emprestimo_funcionario_idTousuario")
+  emprestimo_emprestimo_usuario_idTousuario     emprestimo[] @relation("emprestimo_usuario_idTousuario")
+}
