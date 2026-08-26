@@ -4,6 +4,7 @@ class LivroRepositories {
      async visualizar () {
           const result = await prisma.livro_autor.findMany({
                select: {
+                    id: true,
                     livro: {
                          select: {
                               id: true,
@@ -28,6 +29,7 @@ class LivroRepositories {
                     id: livro.id
                },
                select: {
+                    id: true,
                     livro: {
                          select: {
                               id: true,
