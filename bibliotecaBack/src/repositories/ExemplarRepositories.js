@@ -6,7 +6,18 @@ class ExemplarRepositories {
                select: {
                     id: true,
                     cod_identificacao: true,
-                    livro: true,
+                    livro: {
+                         select: {
+                              id: true,
+                              isbn: true,
+                              titulo: true,
+                              ano_publicacao: true,
+                              edicao: true,
+                              editora: true,
+                              categoria: true,
+                              descricao: true
+                         }
+                    },
                     data_aquisicao: true,
                     estado_conservacao: true,
                     status: true
@@ -23,7 +34,18 @@ class ExemplarRepositories {
                select: {
                     id: true,
                     cod_identificacao: true,
-                    livro: true,
+                    livro: {
+                         select: {
+                              id: true,
+                              isbn: true,
+                              titulo: true,
+                              ano_publicacao: true,
+                              edicao: true,
+                              editora: true,
+                              categoria: true,
+                              descricao: true
+                         }
+                    },
                     data_aquisicao: true,
                     estado_conservacao: true,
                     status: true
