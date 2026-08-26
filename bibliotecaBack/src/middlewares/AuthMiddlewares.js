@@ -13,7 +13,7 @@ const AuthMiddlewares = (req,res,next) => {
 
           const token = authHeaders.split(' ')[1]
 
-          const decode = await jwt.verify(token, process.env.JWT_SECRET)
+          const decode = jwt.verify(token, process.env.JWT_SECRET)
 
           req.user = decode
 
