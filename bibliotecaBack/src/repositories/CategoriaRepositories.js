@@ -15,6 +15,15 @@ class CategoriaRepositories {
 
           return result
      }
+     async buscarPorNome (categoria) {
+          const result = await prisma.categoria.findUnique({
+               where: {
+                    nome: categoria.nome
+               }
+          })
+
+          return result
+     }
      async adicionar (categoria) {
           const result = await prisma.categoria.create({
                data: {
