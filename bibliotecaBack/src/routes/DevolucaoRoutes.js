@@ -1,0 +1,15 @@
+import express from 'express'
+import DevolucaoControllers from '../controllers/DevolucaoControllers.js'
+import AuthMiddlewares from '../middlewares/AuthMiddlewares.js'
+import AdminMiddlewares from '../middlewares/AdminMiddlewares.js'
+
+const devolucao_controllers = new DevolucaoControllers()
+const DevolucaoRoutes = express.Router()
+
+DevolucaoRoutes.get('/', devolucao_controllers.visualizar)
+DevolucaoRoutes.get('/:id', devolucao_controllers.buscarPorID)
+DevolucaoRoutes.post('/', AuthMiddlewares, AdminMiddlewares, devolucao_controllers.adicionar)
+DevolucaoRoutes.put('/:id', AuthMiddlewares, AdminMiddlewares, devolucao_controllers.atualizar)
+DevolucaoRoutes.delete('/:id', AuthMiddlewares, AdminMiddlewares, devolucao_controllers.deletar)
+
+export default DevolucaoRoutes

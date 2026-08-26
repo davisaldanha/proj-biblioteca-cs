@@ -6,8 +6,30 @@ class DevolucaoRepositories {
                select: {
                     id: true,
                     data_devolucao: true,
-                    exemplar: true,
-                    usuario: true,
+                    exemplar: {
+                         select: {
+                              id: true,
+                              cod_identificacao: true,
+                              livro: true,
+                              data_aquisicao: true,
+                              estado_conservacao: true,
+                              status: true
+                         }
+                    },
+                    usuario: {
+                         select: {
+                              id: true,
+                              nome: true,
+                              cpf: true,
+                              email: true,
+                              telefone: true,
+                              data_nascimento: true,
+                              data_cadastro: true,
+                              endereco: true,
+                              status: true,
+                              perfil: true
+                         }
+                    },
                     situacao: true
                }
           })
@@ -22,8 +44,30 @@ class DevolucaoRepositories {
                select: {
                     id: true,
                     data_devolucao: true,
-                    exemplar: true,
-                    usuario: true,
+                    exemplar: {
+                         select: {
+                              id: true,
+                              cod_identificacao: true,
+                              livro: true,
+                              data_aquisicao: true,
+                              estado_conservacao: true,
+                              status: true
+                         }
+                    },
+                    usuario: {
+                         select: {
+                              id: true,
+                              nome: true,
+                              cpf: true,
+                              email: true,
+                              telefone: true,
+                              data_nascimento: true,
+                              data_cadastro: true,
+                              endereco: true,
+                              status: true,
+                              perfil: true
+                         }
+                    },
                     situacao: true
                }
           })
