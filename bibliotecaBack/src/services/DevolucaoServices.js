@@ -44,47 +44,6 @@ class DevolucaoServices {
 
           return result
      }
-     async atualizar (devolucao) {
-          if (!devolucao.id) {
-               throw new AppError("Insira o id da devolucao",404);
-               
-          }
-          
-          const verificarID = await this.devolucao_repositories.buscarPorID(devolucao)
-          
-          if (!verificarID) {
-               throw new AppError("Nenhuma devolucao com esse id encontrado",404);
-               
-          }
-
-          const verificarExemplarDevolvido = await this.devolucao_repositories.buscarPorExemplarEmprestado(devolucao)
-
-          if (!verificarExemplarDevolvido) {
-               throw new AppError("Esse exemplar não esta emprestado",404);
-               
-          }
-
-          const result = await this.devolucao_repositories.atualizar(devolucao)
-
-          return result
-     }
-     async deletar (devolucao) {
-          if (!devolucao.id) {
-               throw new AppError("Insira o id da devolucao",404);
-               
-          }
-          
-          const verificarID = await this.devolucao_repositories.buscarPorID(devolucao)
-          
-          if (!verificarID) {
-               throw new AppError("Nenhuma devolucao com esse id encontrado",404);
-               
-          }
-
-          const result = await this.devolucao_repositories.deletar(devolucao)
-
-          return result
-     }
 }
 
 export default DevolucaoServices

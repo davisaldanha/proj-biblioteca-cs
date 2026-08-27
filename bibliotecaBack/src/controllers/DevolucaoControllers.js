@@ -49,46 +49,6 @@ class DevolucaoControllers {
               next(error) 
           }
      }
-     atualizar = async (req,res,next) => {
-          try {
-               const id = req.params.id
-               const {exemplar_id,funcionario_id,situacao} = req.body
-
-               const devolucao = {
-                    id,
-                    exemplar_id,
-                    funcionario_id,
-                    situacao
-               }
-
-               const result = await this.devolucao_services.atualizar(devolucao)
-
-               res.status(200).json({
-                    "message": "devolucao atualizado com sucesso",
-                    result
-               })
-          } catch (error) {
-              next(error) 
-          }
-     }
-     deletar = async (req,res,next) => {
-          try {
-               const id = req.params.id
-
-               const devolucao = {
-                    id
-               }
-
-               const result = await this.devolucao_services.deletar(devolucao)
-
-               res.status(200).json({
-                    "message": "devolucao deletado com sucesso",
-                    result
-               })
-          } catch (error) {
-              next(error) 
-          }
-     }
 }
 
 export default DevolucaoControllers

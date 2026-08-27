@@ -102,7 +102,19 @@ class DevolucaoRepositories {
                     id: true,
                     data_devolucao: true,
                     exemplar: true,
-                    usuario: true,
+                    usuario: {
+                         select: {
+                              id: true,
+                              nome: true,
+                              email: true,
+                              telefone: true,
+                              endereco: true,
+                              data_cadastro: true,
+                              data_nascimento: true,
+                              status: true,
+                              perfil: true
+                         }
+                    },
                     situacao: true
                     }
                })
@@ -112,7 +124,7 @@ class DevolucaoRepositories {
                          id: devol.exemplar.id
                     },
                     data: {
-                         status: 'disponivel'
+                         status: 'Disponivel'
                     },
                     select: {
                          id: true,
@@ -139,7 +151,8 @@ class DevolucaoRepositories {
                          id: emprestimoExemplar.emprestimo_id
                     },
                     data: {
-                         status: 'devolvido'
+                         status: 'Devolvido',
+                         data_devolucao: new Date().toISOString()
                     }
                })
 
@@ -148,85 +161,6 @@ class DevolucaoRepositories {
                     exemplar: devol.exemplar,
                     funcionario: devol.usuario,
                     situacao: devol.situacao,
-               }
-          })
-
-          return result
-     }
-     async atualizar (devolucao) {
-          const result = await prisma.$transaction(async (fx) => {
-               const devol = await fx.devolucao.update({
-                    data: {
-                         exemplar_id: devolucao.exemplar_id,
-                         funcionario_id: devolucao.funcionario_id,
-                         situacao: devolucao.situacao
-                    },
-                    select: {
-                    id: true,
-                    data_devolucao: true,
-                    exemplar: true,
-                    usuario: true,
-                    situacao: true
-                    }
-               })
-               
-               const exemplar = await fx.exemplar.update({
-                    where: {
-                         id: devol.exemplar.id
-                    },
-                    data: {
-                         status: 'disponivel'
-                    },
-                    select: {
-                         id: true,
-                         cod_identificacao: true,
-                         livro: true,
-                         data_aquisicao: true,
-                         estado_conservacao: true,
-                         status: true,
-                         emprestimo_exemplar: true
-                    }
-               })
-
-               const emprestimoExemplar = await fx.emprestimo_exemplar.findFirst({
-                    where: {
-                         exemplar_id: exemplar.id
-                    },
-                    select: {
-                         emprestimo_id: true
-                    }
-               })
-
-               const emprestimo = await fx.emprestimo.update({
-                    where: {
-                         id: emprestimoExemplar.emprestimo_id
-                    },
-                    data: {
-                         status: 'devolvido'
-                    }
-               })
-
-               return {
-                    id: devol.id,
-                    exemplar: devol.exemplar,
-                    funcionario: devol.usuario,
-                    situacao: devol.situacao,
-               }
-          })
-
-          return result
-     }
-     async deletar (devolucao) {
-          const result = await prisma.devolucao.delete({
-               where: {
-                    id: devolucao.id
-               },
-               select: {
-                    id: true,
-                    data_devolucao: true,
-                    exemplar: true,
-                    usuario: true,
-                    situacao: true
                }
           })
 
