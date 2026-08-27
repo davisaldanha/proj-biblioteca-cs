@@ -57,7 +57,7 @@ model emprestimo_exemplar {
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model exemplar {
   id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  cod_identificacao   Int
+  cod_identificacao   Int                   @unique(map: "unq_cod_identificacao")
   livro_id            String                @db.Uuid
   data_aquisicao      String?               @db.VarChar(25)
   estado_conservacao  String?               @db.VarChar(50)

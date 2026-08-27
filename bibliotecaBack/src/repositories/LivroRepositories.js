@@ -49,9 +49,14 @@ class LivroRepositories {
           return result
      }
      async buscarPorIsbn (livro) {
-          const result = await prisma.livro.findUnique({
+          const result = await prisma.livro_autor.findFirst({
                where: {
-                    isbn: livro.isbn
+                    livro: {
+                         isbn: livro.isbn
+                    }
+               }, select: {
+                    id: true,
+                    livro: true
                }
           })
 
