@@ -34,7 +34,7 @@ class ExemplarControllers {
                const {cod_identificacao,livro_id,data_aquisicao,estado_conservacao,status} = req.body
 
                const exemplar = {
-                    cod_identificacao,
+                    cod_identificacao: parseInt(cod_identificacao),
                     livro_id,
                     data_aquisicao,
                     estado_conservacao,
@@ -58,7 +58,7 @@ class ExemplarControllers {
 
                const exemplar = {
                     id,
-                    cod_identificacao,
+                    cod_identificacao: parseInt(cod_identificacao),
                     livro_id,
                     data_aquisicao,
                     estado_conservacao,
