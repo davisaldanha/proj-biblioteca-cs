@@ -1,0 +1,91 @@
+#overlay {
+    background-color: #00000063;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    position: fixed;
+    inset: 0;
+}
+
+#overlay .modal {
+    width: 700px;
+    padding: 40px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    z-index: 999;
+    height: 90%;
+}
+
+#overlay .modal .title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#overlay .modal .title div{
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.2s all ease-in-out;
+}
+
+#overlay .modal .title div:hover {
+    color: var(--details);
+}
+
+#overlay .modal form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: scroll;
+    height: 100%;
+}
+
+#overlay .modal form .label-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#overlay .modal form .label-input input {
+    padding: 10px 15px;
+    outline: none;
+    border: 2px solid #666;
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+#overlay .modal form .label-input input:focus {
+    border: 2px solid var(--details);
+}
+
+#overlay .modal form .label-input select {
+    padding: 10px 15px;
+    outline: none;
+    border: 2px solid #666;
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+#overlay .modal form .label-input select:focus {
+    border: 2px solid var(--details);
+}
+
+#overlay .modal form button {
+    background-color: var(--details);
+    border: none;
+    padding: 10px 15px;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s all ease-in-out;
+    margin-top: auto;
+}
+
+#overlay .modal form button:hover {
+    opacity: 0.7;
+}

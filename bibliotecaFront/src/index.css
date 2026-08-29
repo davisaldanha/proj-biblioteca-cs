@@ -1,0 +1,19 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+:root {
+  --background: #F5F6F8;
+  --details: #2563EB;
+  --details_clean: #FFFFFF;
+  --text: #111827;
+  --sub_text: #6B7280;
+  --text_clean: #FFFFFF;
+  --delete: #DC2626;
+  --sucess: #16A34A;
+  --error: #DC2626;
+  --border: #666;
+}

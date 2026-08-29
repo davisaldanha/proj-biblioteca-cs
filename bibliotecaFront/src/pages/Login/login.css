@@ -1,0 +1,81 @@
+#login{
+    height: 100vh;
+    display: flex;
+}
+
+#login .box-register{
+    width: 400px;
+    background-color: var(--details);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    color: #fff;
+}
+
+#login .box-register a {
+    margin-top: 10px;
+    text-decoration: none;
+    color: var(--text_clean);
+    border: 2px solid var(--text_clean);
+    border-radius: 8px;
+    padding: 10px 15px;
+    width: 200px;
+    text-align: center;
+    transition: 0.2s all ease-in-out;
+}
+
+#login .box-register a:hover {
+    background-color: #ffffff3d;
+}
+
+#login .box-form {
+    width: 100%;
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+    gap: 5px;
+}
+
+#login .box-form form {
+    margin-top: 180px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 10px;
+}
+
+#login .box-form form .label-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#login .box-form form .label-input input {
+    padding: 10px 15px;
+    outline: none;
+    border: 2px solid var(--border);
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+#login .box-form form .label-input input:focus{
+    border: 2px solid var(--details);
+}
+
+#login .box-form form button {
+    background-color: var(--details);
+    border: none;
+    padding: 10px 15px;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s all ease-in-out;
+}
+
+#login .box-form form button:hover {
+    opacity: 0.7;
+}
