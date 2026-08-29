@@ -101,7 +101,16 @@ class DevolucaoRepositories {
                     select: {
                     id: true,
                     data_devolucao: true,
-                    exemplar: true,
+                    exemplar: {
+                         select: {
+                              id: true,
+                              cod_identificacao: true,
+                              data_aquisicao: true,
+                              livro: true,
+                              estado_conservacao: true,
+                              status: true
+                         }
+                    },
                     usuario: {
                          select: {
                               id: true,
@@ -137,18 +146,14 @@ class DevolucaoRepositories {
                     }
                })
 
-               const emprestimoExemplar = await fx.emprestimo_exemplar.findFirst({
+               const emprestimo = await fx.emprestimo.updateMany({
                     where: {
-                         exemplar_id: exemplar.id
-                    },
-                    select: {
-                         emprestimo_id: true
-                    }
-               })
-
-               const emprestimo = await fx.emprestimo.update({
-                    where: {
-                         id: emprestimoExemplar.emprestimo_id
+                         status: 'Em aberto',
+                         emprestimo_exemplar: {
+                              some: {
+                                   exemplar_id: exemplar.id
+                              }
+                         }
                     },
                     data: {
                          status: 'Devolvido',
@@ -161,6 +166,8 @@ class DevolucaoRepositories {
                     exemplar: devol.exemplar,
                     funcionario: devol.usuario,
                     situacao: devol.situacao,
+                    emprestimo: emprestimo,
+                    data_devolucao: devol.data_devolucao
                }
           })
 

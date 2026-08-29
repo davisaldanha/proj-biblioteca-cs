@@ -127,7 +127,8 @@ class LivroRepositories {
                          autor_id: livro.autor_id
                     }, select: {
                          autor: true,
-                         livro: true
+                         livro: true,
+                         id: true
                     }
                })
                

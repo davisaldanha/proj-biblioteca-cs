@@ -181,6 +181,13 @@ class EmprestimoRepositories {
                     },
                     data: {
                          status: 'Emprestado'
+                    }, select: {
+                         id: true,
+                         cod_identificacao: true,
+                         data_aquisicao:true,
+                         livro: true,
+                         estado_conservacao: true,
+                         status: true,
                     }
                })
 

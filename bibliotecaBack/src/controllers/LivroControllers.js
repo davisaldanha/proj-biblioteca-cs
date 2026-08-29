@@ -34,9 +34,9 @@ class LivroControllers {
                const {isbn,titulo,ano_publicacao,edicao,editora,categoria_id,descricao,autor_id} = req.body
 
                const livro = {
-                    isbn,
+                    isbn: parseInt(isbn),
                     titulo,
-                    ano_publicacao,
+                    ano_publicacao: parseInt(ano_publicacao),
                     edicao,
                     editora,
                     categoria_id,
@@ -61,9 +61,9 @@ class LivroControllers {
 
                const livro = {
                     id,
-                    isbn,
+                    isbn: parseInt(isbn),
                     titulo,
-                    ano_publicacao,
+                    ano_publicacao: parseInt(ano_publicacao),
                     edicao,
                     editora,
                     categoria_id,
