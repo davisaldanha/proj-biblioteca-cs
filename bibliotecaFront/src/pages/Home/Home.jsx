@@ -65,6 +65,7 @@ const Home = () => {
 
   const funcionarios = usuarios.filter((u) => u.perfil != 'cliente')
   const clientes = usuarios.filter((u) => u.perfil == 'cliente')
+  const exemplaresAtivos = exemplares.filter((e) => e.ativo)
 
 
   // SELETOR DO CONTEUDO ATIVO COM BASE NA TAB COM SWITCH E SELETOR DOS CAMPOS DO FORMULARIO
@@ -131,7 +132,7 @@ const Home = () => {
           </div>
           <div className="box-btn">
             <button aria-label='editar' disabled={user.perfil != 'admin'} onClick={() => setModal({open: true, mode: 'att', register: u} )}>Editar</button>
-            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => deletarEntidade(u.id)}>Deletar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(u.id)}>Deletar</button>
           </div>
         </article>
       )
@@ -163,7 +164,7 @@ const Home = () => {
           </div>
           <div className="box-btn">
             <button aria-label='editar' onClick={() => setModal({open: true, mode: 'att', register: a})} disabled={user.perfil != 'admin'}>Editar</button>
-            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => deletarEntidade(a.id)}>Deletar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(a.id)}>Deletar</button>
           </div>
         </article>
       )
@@ -190,7 +191,7 @@ const Home = () => {
           </div>
           <div className="box-btn">
             <button aria-label='editar' onClick={() => setModal({open: true, mode: 'att', register: c} )} disabled={user.perfil != 'admin'}>Editar</button>
-            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => deletarEntidade(c.id)}>Deletar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(c.id)}>Deletar</button>
           </div>
         </article>
       )
@@ -253,7 +254,7 @@ const Home = () => {
           </div>
           <div className="box-btn">
             <button aria-label='editar' onClick={() => setModal({open: true, mode: 'att', register: l})} disabled={user.perfil != 'admin'}>Editar</button>
-            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => deletarEntidade(l.id)}>Deletar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(l.id)}>Deletar</button>
           </div>
         </article>
       )
@@ -307,7 +308,7 @@ const Home = () => {
           </div>
           <div className="box-btn">
             <button aria-label='editar' onClick={() => setModal({open: true, mode: 'att', register: e})} disabled={user.perfil != 'admin'}>Editar</button>
-            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => deletarEntidade(e.id)}>Deletar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(e.id)}>Deletar</button>
           </div>
         </article>
       )
@@ -475,12 +476,12 @@ const Home = () => {
     }
   }
 
-  const deletarEntidade = async (id) => {
+  const alterarAtivo = async (id) => {
     try {
       setErrors('')
       setMsg('')
 
-      const result = await api.delete(`/${tab}/${id}`)
+      const result = await api.patch(`/${tab}/${id}`)
 
       setMsg(result.data.message)
 
@@ -495,9 +496,13 @@ const Home = () => {
       }
 
       const setEntidade = setterPorTab[tab]
-      const entidadeRemovida = result.data.result
+      const entidadeSalva = result.data.result
 
-      setEntidade((entidades) => entidades.filter((e) => e.id != entidadeRemovida.id))
+      setEntidade((entidades) => 
+          entidades.map((e) => 
+            e.id == entidadeSalva.id ? entidadeSalva : e
+          )
+        )
 
       buscarAPI()
 
@@ -526,7 +531,7 @@ const Home = () => {
           <p>Livros</p>
         </article>
         <article className="card">
-          <h2>{exemplares.length}</h2>
+          <h2>{exemplaresAtivos.length}</h2>
           <p>Exemplares</p>
         </article>
         <article className="card">

@@ -69,7 +69,7 @@ const Register = () => {
             <label htmlFor="endereco">Endereço</label>
             <input onChange={(e) => setEndereco(e.target.value)} id='endereco' type="text" aria-label='digite seu endereço' placeholder='Digite seu endereço...' required/>
           </div>
-          <button aria-label='Fazer Login' type='submit'>FAZER LOGIN</button>
+          <button aria-label='CRIAR CONTA' type='submit'>CRIAR CONTA</button>
         </form>
       </section>
       {error? <Toast tipo='error' message={error}/> : null}
