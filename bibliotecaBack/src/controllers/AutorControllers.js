@@ -71,7 +71,7 @@ class AutorControllers {
               next(error) 
           }
      }
-     deletar = async (req,res,next) => {
+     alterarAtivo = async (req,res,next) => {
           try {
                const id = req.params.id
 
@@ -79,7 +79,7 @@ class AutorControllers {
                     id
                }
 
-               const result = await this.autor_services.deletar(autor)
+               const result = await this.autor_services.alterarAtivo(autor)
 
                res.status(200).json({
                     "message": "autor deletado com sucesso",

@@ -69,7 +69,7 @@ class CategoriaControllers {
               next(error) 
           }
      }
-     deletar = async (req,res,next) => {
+     alterarAtivo = async (req,res,next) => {
           try {
                const id = req.params.id
 
@@ -77,7 +77,7 @@ class CategoriaControllers {
                     id
                }
 
-               const result = await this.categoria_services.deletar(categoria)
+               const result = await this.categoria_services.alterarAtivo(categoria)
 
                res.status(200).json({
                     "message": "categoria deletada com sucesso",

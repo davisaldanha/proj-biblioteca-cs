@@ -61,7 +61,7 @@ class AutorServices {
 
           return result
      }
-     async deletar (autor) {
+     async alterarAtivo (autor) {
           if (!autor.id) {
                throw new AppError("Insira o id do autor",404);
                
@@ -74,7 +74,7 @@ class AutorServices {
                
           }
 
-          const result = await this.autor_repositories.deletar(autor)
+          const result = await this.autor_repositories.alterarAtivo(autor)
 
           return result
      }

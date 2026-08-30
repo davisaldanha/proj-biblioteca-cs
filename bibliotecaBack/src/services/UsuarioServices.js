@@ -1,5 +1,6 @@
 import UsuarioRepositories from '../repositories/UsuarioRepositories.js'
 import AppError from '../errors/AppError.js'
+import bcrypt from 'bcrypt'
 
 class UsuarioServices {
      constructor() {
@@ -78,7 +79,21 @@ class UsuarioServices {
                
           }
 
-          const result = await this.usuario_repositories.adicionar(usuario)
+          const senhaHasheada = await bcrypt.hash(usuario.senha, 10)
+
+          const user = {
+               nome: usuario.nome,
+               cpf: usuario.cpf,
+               email: usuario.email,
+               senha: senhaHasheada,
+               telefone: usuario.telefone,
+               data_nascimento: usuario.data_nascimento,
+               endereco: usuario.endereco,
+               perfil: usuario.perfil,
+               status: usuario.status
+          }
+
+          const result = await this.usuario_repositories.adicionar(user)
 
           return result
      }
@@ -109,11 +124,30 @@ class UsuarioServices {
                
           }
 
-          const result = await this.usuario_repositories.atualizar(usuario)
+          let senhaHasheada;
+
+          const user = {
+               id: usuario.id,
+               nome: usuario.nome,
+               cpf: usuario.cpf,
+               email: usuario.email,
+               telefone: usuario.telefone,
+               data_nascimento: usuario.data_nascimento,
+               endereco: usuario.endereco,
+               perfil: usuario.perfil,
+               status: usuario.status
+          }
+          if (usuario.senha) {
+               senhaHasheada = await bcrypt.hash(usuario.senha, 10)
+
+               user.senha = senhaHasheada
+          }
+          
+          const result = await this.usuario_repositories.atualizar(user)
 
           return result
      }
-     async deletar (usuario) {
+     async alterarAtivo (usuario) {
           if (!usuario.id) {
                throw new AppError("Insira o id da usuario",404);
                
@@ -126,7 +160,20 @@ class UsuarioServices {
                
           }
 
-          const result = await this.usuario_repositories.deletar(usuario)
+          let status;
+
+          if (verificarID.status == 'ativo') {
+               status = 'inativo'
+          } else {
+               status = 'ativo'
+          }
+
+          const user = {
+               id: usuario.id,
+               status: status
+          }
+
+          const result = await this.usuario_repositories.alterarAtivo(user)
 
           return result
      }

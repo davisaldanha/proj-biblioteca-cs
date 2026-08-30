@@ -10,6 +10,6 @@ AutorRoutes.get('/', autor_controllers.visualizar)
 AutorRoutes.get('/:id', autor_controllers.buscarPorID)
 AutorRoutes.post('/', AuthMiddlewares, AdminMiddlewares, autor_controllers.adicionar)
 AutorRoutes.put('/:id', AuthMiddlewares, AdminMiddlewares, autor_controllers.atualizar)
-AutorRoutes.delete('/:id', AuthMiddlewares, AdminMiddlewares, autor_controllers.deletar)
+AutorRoutes.patch('/:id', AuthMiddlewares, AdminMiddlewares, autor_controllers.alterarAtivo)
 
 export default AutorRoutes

@@ -71,7 +71,7 @@ class CategoriaServices {
 
           return result
      }
-     async deletar (categoria) {
+     async alterarAtivo (categoria) {
           if (!categoria.id) {
                throw new AppError("Insira o id da categoria",404);
                
@@ -84,7 +84,7 @@ class CategoriaServices {
                
           }
 
-          const result = await this.categoria_repositories.deletar(categoria)
+          const result = await this.categoria_repositories.alterarAtivo(categoria)
 
           return result
      }

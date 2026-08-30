@@ -10,6 +10,6 @@ CategoriaRoutes.get('/', categoria_controllers.visualizar)
 CategoriaRoutes.get('/:id', categoria_controllers.buscarPorID)
 CategoriaRoutes.post('/', AuthMiddlewares, AdminMiddlewares, categoria_controllers.adicionar)
 CategoriaRoutes.put('/:id', AuthMiddlewares, AdminMiddlewares, categoria_controllers.atualizar)
-CategoriaRoutes.delete('/:id', AuthMiddlewares, AdminMiddlewares, categoria_controllers.deletar)
+CategoriaRoutes.patch('/:id', AuthMiddlewares, AdminMiddlewares, categoria_controllers.alterarAtivo)
 
 export default CategoriaRoutes

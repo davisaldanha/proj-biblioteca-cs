@@ -95,7 +95,7 @@ class LivroServices {
 
           return result
      }
-     async deletar (livro) {
+     async alterarAtivo (livro) {
           if (!livro.id) {
                throw new AppError("Insira o id da livro",404);
                
@@ -108,7 +108,7 @@ class LivroServices {
                
           }
 
-          const result = await this.livro_repositories.deletar(livro)
+          const result = await this.livro_repositories.alterarAtivo(livro)
 
           return result
      }

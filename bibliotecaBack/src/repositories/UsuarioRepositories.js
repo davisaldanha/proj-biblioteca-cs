@@ -143,15 +143,21 @@ class UsuarioRepositories {
 
           return result
      }
-     async deletar (usuario) {
-          const result = await prisma.usuario.delete({
+     async alterarAtivo (usuario) {
+          const result = await prisma.usuario.update({
                where: {
                     id: usuario.id
-               },
-               select: {
+               }, data: {
+                    status: usuario.status
+               }, select: {
                     id: true,
                     nome: true,
+                    cpf: true,
                     email: true,
+                    telefone: true,
+                    data_nascimento: true,
+                    data_cadastro: true,
+                    endereco: true,
                     perfil: true,
                     status: true
                }

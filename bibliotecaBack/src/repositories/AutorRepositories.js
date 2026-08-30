@@ -40,11 +40,27 @@ class AutorRepositories {
 
           return result
      }
-     async deletar (autor) {
-          const result = await prisma.autor.delete({
-               where: {
-                    id: autor.id
-               }
+     async alterarAtivo (autor) {
+          const result = await prisma.$transaction( async (fx) => {
+               const atual = await fx.autor.findFirst({
+                    where: {
+                         id: autor.id
+                    },
+                    select: {
+                         ativo: true
+                    }
+               })
+
+               const novo = await fx.autor.update({
+                    where: {
+                         id: autor.id
+                    },
+                    data: {
+                         ativo: !atual.ativo
+                    }
+               })
+
+               return novo
           })
 
           return result

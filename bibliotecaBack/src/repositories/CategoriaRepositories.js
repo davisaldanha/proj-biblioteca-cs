@@ -47,11 +47,27 @@ class CategoriaRepositories {
 
           return result
      }
-     async deletar (categoria) {
-          const result = await prisma.categoria.delete({
-               where: {
-                    id: categoria.id
-               }
+     async alterarAtivo (categoria) {
+          const result = await prisma.$transaction( async (fx) => {
+               const atual = await fx.categoria.findFirst({
+                    where: {
+                         id: categoria.id
+                    },
+                    select: {
+                         ativo: true
+                    }
+               })
+
+               const novo = await fx.categoria.update({
+                    where: {
+                         id: categoria.id
+                    },
+                    data: {
+                         ativo: !atual.ativo
+                    }
+               })
+
+               return novo
           })
 
           return result

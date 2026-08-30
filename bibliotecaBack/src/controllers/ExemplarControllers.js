@@ -75,7 +75,7 @@ class ExemplarControllers {
               next(error) 
           }
      }
-     deletar = async (req,res,next) => {
+     alterarAtivo = async (req,res,next) => {
           try {
                const id = req.params.id
 
@@ -83,7 +83,7 @@ class ExemplarControllers {
                     id
                }
 
-               const result = await this.exemplar_services.deletar(exemplar)
+               const result = await this.exemplar_services.alterarAtivo(exemplar)
 
                res.status(200).json({
                     "message": "exemplar deletado com sucesso",

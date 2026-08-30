@@ -83,7 +83,7 @@ class UsuarioControllers {
               next(error) 
           }
      }
-     deletar = async (req,res,next) => {
+     alterarAtivo = async (req,res,next) => {
           try {
                const id = req.params.id
 
@@ -91,7 +91,7 @@ class UsuarioControllers {
                     id
                }
 
-               const result = await this.usuario_services.deletar(usuario)
+               const result = await this.usuario_services.alterarAtivo(usuario)
 
                res.status(200).json({
                     "message": "usuario deletado com sucesso",

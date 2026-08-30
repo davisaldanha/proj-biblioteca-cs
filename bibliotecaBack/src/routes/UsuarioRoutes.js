@@ -10,6 +10,6 @@ UsuarioRoutes.get('/', usuario_controllers.visualizar)
 UsuarioRoutes.get('/:id', usuario_controllers.buscarPorID)
 UsuarioRoutes.post('/', AuthMiddlewares, AdminMiddlewares, usuario_controllers.adicionar)
 UsuarioRoutes.put('/:id', AuthMiddlewares, AdminMiddlewares, usuario_controllers.atualizar)
-UsuarioRoutes.delete('/:id', AuthMiddlewares, AdminMiddlewares, usuario_controllers.deletar)
+UsuarioRoutes.patch('/:id', AuthMiddlewares, AdminMiddlewares, usuario_controllers.alterarAtivo)
 
 export default UsuarioRoutes

@@ -179,36 +179,51 @@ class LivroRepositories {
 
           return result
      }
-     async deletar (livro) {
-          const result = await prisma.$transaction(async (fx) => {
-               const livro_autor = await fx.livro_autor.delete({
+     async alterarAtivo (livro) {
+          const result = await prisma.$transaction( async (fx) => {
+               const atual = await fx.livro_autor.findFirst({
                     where: {
                          id: livro.id
                     },
                     select: {
-                         id: true,
-                         livro: true
-                    }
-               })
-               const book = await fx.livro.delete({
-                    where: {
-                         id: livro_autor.livro.id 
-                    },
-                    select : {
-                         id: true,
-                         isbn: true,
-                         titulo: true
+                         ativo: true
                     }
                })
 
-               return {
-                    id: livro_autor.id,
+               const novo = await fx.livro_autor.update({
+                    where: {
+                         id: livro.id
+                    },
+                    data: {
+                         ativo: !atual.ativo
+                    },
+                    select: {
+                    id: true,
+                    ativo: true,
                     livro: {
-                         id: book.id,
-                         isbn: book.isbn,
-                         titulo: book.titulo
+                         select: {
+                              id: true,
+                              isbn: true,
+                              titulo: true,
+                              ano_publicacao: true,
+                              edicao: true,
+                              editora: true,
+                              categoria: true,
+                              descricao: true
+                         }
+                    },
+                    autor: {
+                         select: {
+                              id: true,
+                              nome: true,
+                              nascionalidade: true,
+                              data_nascimento: true
+                         }
                     }
                }
+               })
+
+               return novo
           })
 
           return result

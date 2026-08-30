@@ -83,7 +83,7 @@ class ExemplarServices {
 
           return result
      }
-     async deletar (exemplar) {
+     async alterarAtivo (exemplar) {
           if (!exemplar.id) {
                throw new AppError("Insira o id da exemplar",404);
                
@@ -96,7 +96,7 @@ class ExemplarServices {
                
           }
 
-          const result = await this.exemplar_repositories.deletar(exemplar)
+          const result = await this.exemplar_repositories.alterarAtivo(exemplar)
 
           return result
      }

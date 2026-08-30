@@ -10,6 +10,6 @@ ExemplarRoutes.get('/', exemplar_controllers.visualizar)
 ExemplarRoutes.get('/:id', exemplar_controllers.buscarPorID)
 ExemplarRoutes.post('/', AuthMiddlewares, AdminMiddlewares, exemplar_controllers.adicionar)
 ExemplarRoutes.put('/:id', AuthMiddlewares, AdminMiddlewares, exemplar_controllers.atualizar)
-ExemplarRoutes.delete('/:id', AuthMiddlewares, AdminMiddlewares, exemplar_controllers.deletar)
+ExemplarRoutes.patch('/:id', AuthMiddlewares, AdminMiddlewares, exemplar_controllers.alterarAtivo)
 
 export default ExemplarRoutes

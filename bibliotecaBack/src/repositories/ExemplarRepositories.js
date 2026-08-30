@@ -20,7 +20,8 @@ class ExemplarRepositories {
                     },
                     data_aquisicao: true,
                     estado_conservacao: true,
-                    status: true
+                    status: true,
+                    ativo: true
                }
           })
 
@@ -48,7 +49,8 @@ class ExemplarRepositories {
                     },
                     data_aquisicao: true,
                     estado_conservacao: true,
-                    status: true
+                    status: true,
+                    ativo: true
                }
           })
 
@@ -65,7 +67,8 @@ class ExemplarRepositories {
                     livro: true,
                     data_aquisicao: true,
                     estado_conservacao: true,
-                    status: true
+                    status: true,
+                    ativo: true
                }
           })
 
@@ -86,7 +89,8 @@ class ExemplarRepositories {
                     livro: true,
                     data_aquisicao: true,
                     estado_conservacao: true,
-                    status: true
+                    status: true,
+                    ativo: true
                }
           })
 
@@ -110,22 +114,42 @@ class ExemplarRepositories {
                     livro: true,
                     data_aquisicao: true,
                     estado_conservacao: true,
-                    status: true
+                    status: true,
+                    ativo: true
                }
           })
 
           return result
      }
-     async deletar (exemplar) {
-          const result = await prisma.exemplar.delete({
-               where: {
-                    id: exemplar.id
-               },
-               select: {
-                    id: true,
-                    cod_identificacao: true,
-                    livro: true
-               }
+     async alterarAtivo (exemplar) {
+          const result = await prisma.$transaction( async (fx) => {
+               const atual = await fx.exemplar.findFirst({
+                    where: {
+                         id: exemplar.id
+                    },
+                    select: {
+                         ativo: true
+                    }
+               })
+
+               const novo = await fx.exemplar.update({
+                    where: {
+                         id: exemplar.id
+                    },
+                    data: {
+                         ativo: !atual.ativo
+                    },
+                    select: {
+                         id: true,
+                         cod_identificacao: true,
+                         livro: true,
+                         data_aquisicao: true,
+                         estado_conservacao: true,
+                         status: true
+                    }
+               })
+
+               return novo
           })
 
           return result

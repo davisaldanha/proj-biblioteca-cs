@@ -81,7 +81,7 @@ class LivroControllers {
               next(error) 
           }
      }
-     deletar = async (req,res,next) => {
+     alterarAtivo = async (req,res,next) => {
           try {
                const id = req.params.id
 
@@ -89,7 +89,7 @@ class LivroControllers {
                     id
                }
 
-               const result = await this.livro_services.deletar(livro)
+               const result = await this.livro_services.alterarAtivo(livro)
 
                res.status(200).json({
                     "message": "livro deletado com sucesso",
