@@ -60,12 +60,15 @@ const Home = () => {
 
 
   // FILTROS
-  const disponiveis = exemplares.filter((e) => e.status == 'Disponivel')
+  const disponiveis = exemplares.filter((e) => e.status == 'Disponivel' && e.ativo)
   const emprestados = exemplares.filter((e) => e.status == 'Emprestado')
 
-  const funcionarios = usuarios.filter((u) => u.perfil != 'cliente')
-  const clientes = usuarios.filter((u) => u.perfil == 'cliente')
+  const funcionarios = usuarios.filter((u) => u.perfil != 'cliente' && u.status == 'ativo')
+  const clientes = usuarios.filter((u) => u.perfil == 'cliente' && u.status == 'ativo')
+  
+  const usuariosAtivos = usuarios.filter((u) => u.status == 'ativo')
   const exemplaresAtivos = exemplares.filter((e) => e.ativo)
+  const livrosAtivos = livros.filter((l) => l.ativo)
 
 
   // SELETOR DO CONTEUDO ATIVO COM BASE NA TAB COM SWITCH E SELETOR DOS CAMPOS DO FORMULARIO
@@ -123,7 +126,7 @@ const Home = () => {
           </div>
         </>
       )
-      conteudo = usuarios.map((u) => 
+      conteudo = user.perfil == 'admin' ? usuarios.map((u) => 
         <article className="card-content" key={u.id}>
           <div className="box-text">
             <p>{u.nome}</p>
@@ -132,7 +135,19 @@ const Home = () => {
           </div>
           <div className="box-btn">
             <button aria-label='editar' disabled={user.perfil != 'admin'} onClick={() => setModal({open: true, mode: 'att', register: u} )}>Editar</button>
-            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(u.id)}>Deletar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(u.id)}>{u.status == 'ativo' ? 'Arquivar' : 'Desarquivar'}</button>
+          </div>
+        </article>
+      ) : usuariosAtivos.map((u) => 
+        <article className="card-content" key={u.id}>
+          <div className="box-text">
+            <p>{u.nome}</p>
+            <p>{u.status}</p>
+            <p>{u.perfil}</p>
+          </div>
+          <div className="box-btn">
+            <button aria-label='editar' disabled={user.perfil != 'admin'} onClick={() => setModal({open: true, mode: 'att', register: u} )}>Editar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(u.id)}>{u.status == 'ativo' ? 'Arquivar' : 'Desarquivar'}</button>
           </div>
         </article>
       )
@@ -164,7 +179,7 @@ const Home = () => {
           </div>
           <div className="box-btn">
             <button aria-label='editar' onClick={() => setModal({open: true, mode: 'att', register: a})} disabled={user.perfil != 'admin'}>Editar</button>
-            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(a.id)}>Deletar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(a.id)}>{a.ativo ? 'Arquivar' : 'Desarquivar'}</button>
           </div>
         </article>
       )
@@ -191,7 +206,7 @@ const Home = () => {
           </div>
           <div className="box-btn">
             <button aria-label='editar' onClick={() => setModal({open: true, mode: 'att', register: c} )} disabled={user.perfil != 'admin'}>Editar</button>
-            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(c.id)}>Deletar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(c.id)}>{c.ativo ? 'Arquivar' : 'Desarquivar'}</button>
           </div>
         </article>
       )
@@ -246,7 +261,7 @@ const Home = () => {
           </div>
         </>
       )
-      conteudo = livros.map((l) =>
+      conteudo = user.perfil == 'admin' ? livros.map((l) =>
         <article className="card-content" key={l.id}>
           <div className="box-text">
             <p>{l.livro.titulo}</p>
@@ -254,7 +269,19 @@ const Home = () => {
           </div>
           <div className="box-btn">
             <button aria-label='editar' onClick={() => setModal({open: true, mode: 'att', register: l})} disabled={user.perfil != 'admin'}>Editar</button>
-            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(l.id)}>Deletar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(l.id)}>{l.ativo ? 'Arquivar' : 'Desarquivar'}</button>
+          </div>
+        </article>
+      ) : 
+        livrosAtivos.map((l) =>
+        <article className="card-content" key={l.id}>
+          <div className="box-text">
+            <p>{l.livro.titulo}</p>
+            <p>{l.livro.descricao}</p>
+          </div>
+          <div className="box-btn">
+            <button aria-label='editar' onClick={() => setModal({open: true, mode: 'att', register: l})} disabled={user.perfil != 'admin'}>Editar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(l.id)}>{l.ativo ? 'Arquivar' : 'Desarquivar'}</button>
           </div>
         </article>
       )
@@ -299,7 +326,7 @@ const Home = () => {
           </div>
         </>
       )
-      conteudo = exemplares.map((e) => 
+      conteudo = user.perfil == 'admin' ? exemplares.map((e) => 
         <article className="card-content" key={e.id}>
           <div className="box-text">
             <p>{e.livro.titulo}</p>
@@ -308,7 +335,19 @@ const Home = () => {
           </div>
           <div className="box-btn">
             <button aria-label='editar' onClick={() => setModal({open: true, mode: 'att', register: e})} disabled={user.perfil != 'admin'}>Editar</button>
-            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(e.id)}>Deletar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(e.id)}>{e.ativo ? 'Arquivar' : 'Desarquivar'}</button>
+          </div>
+        </article>
+      ) : exemplaresAtivos.map((e) => 
+        <article className="card-content" key={e.id}>
+          <div className="box-text">
+            <p>{e.livro.titulo}</p>
+            <p>{e.cod_identificacao}</p>
+            <p>{e.status}</p>
+          </div>
+          <div className="box-btn">
+            <button aria-label='editar' onClick={() => setModal({open: true, mode: 'att', register: e})} disabled={user.perfil != 'admin'}>Editar</button>
+            <button aria-label='deletar' disabled={user.perfil != 'admin'} onClick={() => alterarAtivo(e.id)}>{e.ativo ? 'Arquivar' : 'Desarquivar'}</button>
           </div>
         </article>
       )
@@ -527,7 +566,7 @@ const Home = () => {
 
       <section className="cards">
         <article className="card">
-          <h2>{livros.length}</h2>
+          <h2>{livrosAtivos.length}</h2>
           <p>Livros</p>
         </article>
         <article className="card">
