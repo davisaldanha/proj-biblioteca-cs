@@ -5,6 +5,7 @@ class LivroRepositories {
           const result = await prisma.livro_autor.findMany({
                select: {
                     id: true,
+                    ativo: true,
                     livro: {
                          select: {
                               id: true,
@@ -30,6 +31,7 @@ class LivroRepositories {
                },
                select: {
                     id: true,
+                    ativo: true,
                     livro: {
                          select: {
                               id: true,
@@ -90,12 +92,15 @@ class LivroRepositories {
                          livro_id: book.id,
                          autor_id: livro.autor_id
                     }, select: {
-                         autor: true
+                         autor: true,
+                         id: true,
+                         ativo: true
                     }
                })
 
                return {
                     id: livro_autor.id,
+                    ativo: livro_autor.ativo,
                     livro: {
                          id: book.id,
                          isbn: book.isbn,
@@ -128,7 +133,8 @@ class LivroRepositories {
                     }, select: {
                          autor: true,
                          livro: true,
-                         id: true
+                         id: true,
+                         ativo: true
                     }
                })
                
@@ -158,6 +164,7 @@ class LivroRepositories {
 
                return {
                     id: livro_autor.id,
+                    ativo: true,
                     livro: {
                          id: book.id,
                          isbn: book.isbn,
