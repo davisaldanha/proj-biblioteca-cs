@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import ErrorHandler from './src/middlewares/ErrorHandler.js'
-import Routes from './src/routes/index.js'
+import routes from './src/routes/index.js'
 
 const app = express()
 const port = 3000
@@ -17,7 +17,7 @@ app.get('/', (req,res) => {
 })
 
 // ROTAS
-app.use(`${prefix_url}`, Routes)
+app.use(`${prefix_url}`, routes)
 
 app.use((req,res) => {
      res.status(404).json({

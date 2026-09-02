@@ -1,22 +1,21 @@
-import express from 'express'
 import AuthRoutes from './AuthRoutes.js'
 import AutorRoutes from './AutorRoutes.js'
+import LivroRoutes from './LivroRoutes.js'
+import EmprestimoRoutes from './EmprestimoRoutes.js'
+import UsuarioRoutes from './UsuarioRoutes.js'
 import CategoriaRoutes from './CategoriaRoutes.js'
 import DevolucaoRoutes from './DevolucaoRoutes.js'
-import EmprestimoRoutes from './EmprestimoRoutes.js'
-import ExemplarRoutes from './ExemplarRoutes.js'
-import LivroRoutes from './LivroRoutes.js'
-import UsuarioRoutes from './UsuarioRoutes.js'
 
-const Routes = express.Router()
+import Router from 'express'
 
-Routes.use(`/`, AuthRoutes)
-Routes.use(`/autores`, AutorRoutes)
-Routes.use(`/categorias`, CategoriaRoutes)
-Routes.use(`/devolucoes`, DevolucaoRoutes)
-Routes.use(`/emprestimos`, EmprestimoRoutes)
-Routes.use(`/exemplares`, ExemplarRoutes)
-Routes.use(`/livros`, LivroRoutes)
-Routes.use(`/usuarios`, UsuarioRoutes)
+const routes = Router()
 
-export default Routes
+routes.use('/', AuthRoutes)
+routes.use('/autores', AutorRoutes)
+routes.use('/livros', LivroRoutes)
+routes.use('/emprestimos', EmprestimoRoutes)
+routes.use('/usuarios', UsuarioRoutes)
+routes.use('/categorias', CategoriaRoutes)
+routes.use('/devolucoes', DevolucaoRoutes)
+
+export default routes
