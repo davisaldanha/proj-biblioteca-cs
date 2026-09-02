@@ -6,7 +6,7 @@ class AuthControllers {
      }
 
      login = async (req,res,next) => {
-          try {
+
                const {email, senha} = req.body
 
                const usuario = {
@@ -20,13 +20,11 @@ class AuthControllers {
                     "message": "Usuario logado com sucesso",
                     result
                })
-          } catch (error) {
-               next(error)
-          }
+
      }
 
      register = async (req,res,next) => {
-          try {
+
                const {nome,cpf,email,senha,telefone,data_nascimento,endereco} = req.body
 
                const usuario = {
@@ -44,9 +42,7 @@ class AuthControllers {
                res.status(201).json({
                     "message": "Usuario cadastrado com sucesso"
                })
-          } catch (error) {
-               next(error)
-          }
+
      }
 }
 

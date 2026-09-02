@@ -5,89 +5,78 @@ class AutorControllers {
           this.autor_services = new AutorServices()
      }
 
-     visualizar = async (req,res,next) => {
-          try {
-               const result = await this.autor_services.visualizar()
+     visualizar = async (req, res, next) => {
 
-               res.status(200).json(result)
-          } catch (error) {
-              next(error) 
-          }
+          const result = await this.autor_services.visualizar()
+
+          res.status(200).json(result)
      }
-     buscarPorID = async (req,res,next) => {
-          try {
-               const id = req.params.id
+     buscarPorID = async (req, res, next) => {
 
-               const autor = {
-                    id
-               }
+          const id = req.params.id
 
-               const result = await this.autor_services.buscarPorID(autor)
-
-               res.status(200).json(result)
-          } catch (error) {
-              next(error) 
+          const autor = {
+               id
           }
+
+          const result = await this.autor_services.buscarPorID(autor)
+
+          res.status(200).json(result)
+
      }
-     adicionar = async (req,res,next) => {
-          try {
-               const {nome,nascionalidade,data_nascimento} = req.body
+     adicionar = async (req, res, next) => {
 
-               const autor = {
-                    nome,
-                    nascionalidade,
-                    data_nascimento
-               }
+          const { nome, nascionalidade, data_nascimento } = req.body
 
-               const result = await this.autor_services.adicionar(autor)
-
-               res.status(201).json({
-                    "message": "autor adicionado com sucesso",
-                    result
-               })
-          } catch (error) {
-              next(error) 
+          const autor = {
+               nome,
+               nascionalidade,
+               data_nascimento
           }
+
+          const result = await this.autor_services.adicionar(autor)
+
+          res.status(201).json({
+               "message": "autor adicionado com sucesso",
+               result
+          })
+
      }
-     atualizar = async (req,res,next) => {
-          try {
-               const id = req.params.id
-               const {nome,nascionalidade,data_nascimento} = req.body
+     atualizar = async (req, res, next) => {
 
-               const autor = {
-                    id,
-                    nome,
-                    nascionalidade,
-                    data_nascimento
-               }
+          const id = req.params.id
+          const { nome, nascionalidade, data_nascimento } = req.body
 
-               const result = await this.autor_services.atualizar(autor)
-
-               res.status(200).json({
-                    "message": "autor atualizado com sucesso",
-                    result
-               })
-          } catch (error) {
-              next(error) 
+          const autor = {
+               id,
+               nome,
+               nascionalidade,
+               data_nascimento
           }
+
+          const result = await this.autor_services.atualizar(autor)
+
+          res.status(200).json({
+               "message": "autor atualizado com sucesso",
+               result
+          })
+
      }
-     alterarAtivo = async (req,res,next) => {
-          try {
-               const id = req.params.id
+     alterarAtivo = async (req, res, next) => {
 
-               const autor = {
-                    id
-               }
+          const id = req.params.id
 
-               const result = await this.autor_services.alterarAtivo(autor)
-
-               res.status(200).json({
-                    "message": "autor deletado com sucesso",
-                    result
-               })
-          } catch (error) {
-              next(error) 
+          const autor = {
+               id
           }
+
+          const result = await this.autor_services.alterarAtivo(autor)
+
+          res.status(200).json({
+               "message": "autor deletado com sucesso",
+               result
+          })
+
      }
 }
 

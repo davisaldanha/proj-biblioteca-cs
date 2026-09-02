@@ -6,16 +6,14 @@ class CategoriaControllers {
      }
 
      visualizar = async (req,res,next) => {
-          try {
+
                const result = await this.categoria_services.visualizar()
 
                res.status(200).json(result)
-          } catch (error) {
-              next(error) 
-          }
+
      }
      buscarPorID = async (req,res,next) => {
-          try {
+
                const id = req.params.id
 
                const categoria = {
@@ -25,12 +23,10 @@ class CategoriaControllers {
                const result = await this.categoria_services.buscarPorID(categoria)
 
                res.status(200).json(result)
-          } catch (error) {
-              next(error) 
-          }
+
      }
      adicionar = async (req,res,next) => {
-          try {
+
                const {nome,descricao} = req.body
 
                const categoria = {
@@ -44,12 +40,10 @@ class CategoriaControllers {
                     "message": "categoria adicionada com sucesso",
                     result
                })
-          } catch (error) {
-              next(error) 
-          }
+
      }
      atualizar = async (req,res,next) => {
-          try {
+
                const id = req.params.id
                const {nome,descricao} = req.body
 
@@ -65,12 +59,10 @@ class CategoriaControllers {
                     "message": "categoria atualizada com sucesso",
                     result
                })
-          } catch (error) {
-              next(error) 
-          }
+
      }
      alterarAtivo = async (req,res,next) => {
-          try {
+
                const id = req.params.id
 
                const categoria = {
@@ -83,9 +75,7 @@ class CategoriaControllers {
                     "message": "categoria deletada com sucesso",
                     result
                })
-          } catch (error) {
-              next(error) 
-          }
+
      }
 }
 

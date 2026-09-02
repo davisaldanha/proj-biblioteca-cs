@@ -6,16 +6,14 @@ class ExemplarControllers {
      }
 
      visualizar = async (req,res,next) => {
-          try {
+
                const result = await this.exemplar_services.visualizar()
 
                res.status(200).json(result)
-          } catch (error) {
-              next(error) 
-          }
+
      }
      buscarPorID = async (req,res,next) => {
-          try {
+
                const id = req.params.id
 
                const exemplar = {
@@ -25,12 +23,10 @@ class ExemplarControllers {
                const result = await this.exemplar_services.buscarPorID(exemplar)
 
                res.status(200).json(result)
-          } catch (error) {
-              next(error) 
-          }
+
      }
      adicionar = async (req,res,next) => {
-          try {
+
                const {cod_identificacao,livro_id,data_aquisicao,estado_conservacao,status} = req.body
 
                const exemplar = {
@@ -47,12 +43,10 @@ class ExemplarControllers {
                     "message": "exemplar adicionado com sucesso",
                     result
                })
-          } catch (error) {
-              next(error) 
-          }
+
      }
      atualizar = async (req,res,next) => {
-          try {
+
                const id = req.params.id
                const {cod_identificacao,livro_id,data_aquisicao,estado_conservacao,status} = req.body
 
@@ -71,12 +65,10 @@ class ExemplarControllers {
                     "message": "exemplar atualizado com sucesso",
                     result
                })
-          } catch (error) {
-              next(error) 
-          }
+
      }
      alterarAtivo = async (req,res,next) => {
-          try {
+
                const id = req.params.id
 
                const exemplar = {
@@ -89,9 +81,7 @@ class ExemplarControllers {
                     "message": "exemplar deletado com sucesso",
                     result
                })
-          } catch (error) {
-              next(error) 
-          }
+
      }
 }
 

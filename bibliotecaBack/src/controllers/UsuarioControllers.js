@@ -5,101 +5,91 @@ class UsuarioControllers {
           this.usuario_services = new UsuarioServices()
      }
 
-     visualizar = async (req,res,next) => {
-          try {
-               const result = await this.usuario_services.visualizar()
+     visualizar = async (req, res, next) => {
 
-               res.status(200).json(result)
-          } catch (error) {
-              next(error) 
-          }
+          const result = await this.usuario_services.visualizar()
+
+          res.status(200).json(result)
+
      }
-     buscarPorID = async (req,res,next) => {
-          try {
-               const id = req.params.id
+     buscarPorID = async (req, res, next) => {
 
-               const usuario = {
-                    id
-               }
+          const id = req.params.id
 
-               const result = await this.usuario_services.buscarPorID(usuario)
-
-               res.status(200).json(result)
-          } catch (error) {
-              next(error) 
+          const usuario = {
+               id
           }
+
+          const result = await this.usuario_services.buscarPorID(usuario)
+
+          res.status(200).json(result)
+
      }
-     adicionar = async (req,res,next) => {
-          try {
-               const {nome,cpf,email,senha,telefone,data_nascimento,endereco,status,perfil} = req.body
+     adicionar = async (req, res, next) => {
 
-               const usuario = {
-                    nome,
-                    cpf,
-                    email,
-                    senha,
-                    telefone,
-                    data_nascimento,
-                    endereco,
-                    status,
-                    perfil
-               }
+          const { nome, cpf, email, senha, telefone, data_nascimento, endereco, status, perfil } = req.body
 
-               const result = await this.usuario_services.adicionar(usuario)
-
-               res.status(201).json({
-                    "message": "usuario adicionado com sucesso",
-                    result
-               })
-          } catch (error) {
-              next(error) 
+          const usuario = {
+               nome,
+               cpf,
+               email,
+               senha,
+               telefone,
+               data_nascimento,
+               endereco,
+               status,
+               perfil
           }
+
+          const result = await this.usuario_services.adicionar(usuario)
+
+          res.status(201).json({
+               "message": "usuario adicionado com sucesso",
+               result
+          })
+
      }
-     atualizar = async (req,res,next) => {
-          try {
-               const id = req.params.id
-               const {nome,cpf,email,senha,telefone,data_nascimento,endereco,status,perfil} = req.body
+     atualizar = async (req, res, next) => {
 
-               const usuario = {
-                    id,
-                    nome,
-                    cpf,
-                    email,
-                    senha,
-                    telefone,
-                    data_nascimento,
-                    endereco,
-                    status,
-                    perfil
-               }
+          const id = req.params.id
+          const { nome, cpf, email, senha, telefone, data_nascimento, endereco, status, perfil } = req.body
 
-               const result = await this.usuario_services.atualizar(usuario)
-
-               res.status(200).json({
-                    "message": "usuario atualizado com sucesso",
-                    result
-               })
-          } catch (error) {
-              next(error) 
+          const usuario = {
+               id,
+               nome,
+               cpf,
+               email,
+               senha,
+               telefone,
+               data_nascimento,
+               endereco,
+               status,
+               perfil
           }
+
+          const result = await this.usuario_services.atualizar(usuario)
+
+          res.status(200).json({
+               "message": "usuario atualizado com sucesso",
+               result
+          })
+
      }
-     alterarAtivo = async (req,res,next) => {
-          try {
-               const id = req.params.id
+     alterarAtivo = async (req, res, next) => {
 
-               const usuario = {
-                    id
-               }
+          const id = req.params.id
 
-               const result = await this.usuario_services.alterarAtivo(usuario)
-
-               res.status(200).json({
-                    "message": "usuario deletado com sucesso",
-                    result
-               })
-          } catch (error) {
-              next(error) 
+          const usuario = {
+               id
           }
+
+          const result = await this.usuario_services.alterarAtivo(usuario)
+
+          res.status(200).json({
+               "message": "usuario deletado com sucesso",
+               result
+          })
+
      }
 }
 

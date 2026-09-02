@@ -6,16 +6,14 @@ class DevolucaoControllers {
      }
 
      visualizar = async (req,res,next) => {
-          try {
+
                const result = await this.devolucao_services.visualizar()
 
                res.status(200).json(result)
-          } catch (error) {
-              next(error) 
-          }
+
      }
      buscarPorID = async (req,res,next) => {
-          try {
+
                const id = req.params.id
 
                const devolucao = {
@@ -25,12 +23,10 @@ class DevolucaoControllers {
                const result = await this.devolucao_services.buscarPorID(devolucao)
 
                res.status(200).json(result)
-          } catch (error) {
-              next(error) 
-          }
+
      }
      adicionar = async (req,res,next) => {
-          try {
+
                const {exemplar_id,funcionario_id,situacao} = req.body
 
                const devolucao = {
@@ -45,9 +41,7 @@ class DevolucaoControllers {
                     "message": "devolucao adicionado com sucesso",
                     result
                })
-          } catch (error) {
-              next(error) 
-          }
+
      }
 }
 

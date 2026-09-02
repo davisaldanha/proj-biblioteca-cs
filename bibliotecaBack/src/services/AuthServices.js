@@ -100,6 +100,11 @@ class AuthServices {
                throw new AppError("Email ou senha incorretos",400);
                
           }
+          
+          if (buscarUsuario.perfil == 'cliente' || buscarUsuario.status == 'inativo') {
+               throw new AppError("Voce não tem autorização para acessar a plataforma",400);
+               
+          }
 
           const user = {
                id: buscarUsuario.id,
