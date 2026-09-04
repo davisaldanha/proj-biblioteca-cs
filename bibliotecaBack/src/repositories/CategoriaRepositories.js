@@ -2,7 +2,11 @@ import prisma from '../database/prisma.js'
 
 class CategoriaRepositories {
      async visualizar () {
-          const result = await prisma.categoria.findMany()
+          const result = await prisma.categoria.findMany({
+               orderBy: {
+                    nome: 'asc'
+               }
+          })
 
           return result
      }

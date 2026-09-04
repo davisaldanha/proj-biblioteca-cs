@@ -148,7 +148,9 @@ class DevolucaoRepositories {
 
                const emprestimo = await fx.emprestimo.updateMany({
                     where: {
-                         status: 'Em aberto',
+                         status: {
+                              in: ['Em aberto', 'Em Atraso']
+                         },
                          emprestimo_exemplar: {
                               some: {
                                    exemplar_id: exemplar.id

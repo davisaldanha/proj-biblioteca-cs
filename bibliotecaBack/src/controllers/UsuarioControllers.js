@@ -86,7 +86,7 @@ class UsuarioControllers {
           const result = await this.usuario_services.alterarAtivo(usuario)
 
           res.status(200).json({
-               "message": "usuario deletado com sucesso",
+               "message": "status alterado com sucesso",
                result
           })
 

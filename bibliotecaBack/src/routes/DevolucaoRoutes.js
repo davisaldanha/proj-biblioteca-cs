@@ -9,6 +9,6 @@ const DevolucaoRoutes = express.Router()
 
 DevolucaoRoutes.get('/', expressAsyncHandler(devolucao_controllers.visualizar))
 DevolucaoRoutes.get('/:id', expressAsyncHandler(devolucao_controllers.buscarPorID))
-DevolucaoRoutes.post('/', AuthMiddlewares, AdminMiddlewares, expressAsyncHandler(devolucao_controllers.adicionar))
+DevolucaoRoutes.post('/', AuthMiddlewares, expressAsyncHandler(devolucao_controllers.adicionar))
 
 export default DevolucaoRoutes

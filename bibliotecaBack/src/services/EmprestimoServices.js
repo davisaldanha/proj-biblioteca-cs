@@ -7,6 +7,8 @@ class EmprestimoServices {
      }
 
      async visualizar () {
+          await this.emprestimo_repositories.alterarStatus()
+          
           const result = await this.emprestimo_repositories.visualizar()
 
           return result

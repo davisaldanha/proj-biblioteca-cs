@@ -84,7 +84,7 @@ class LivroControllers {
                const result = await this.livro_services.alterarAtivo(livro)
 
                res.status(200).json({
-                    "message": "livro deletado com sucesso",
+                    "message": "status alterado com sucesso",
                     result
                })
 

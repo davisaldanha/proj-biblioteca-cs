@@ -160,6 +160,13 @@ class UsuarioServices {
                
           }
 
+          const verificarEmprestimoAtivo = await this.usuario_repositories.buscarPorEmprestimoAtivo(usuario)
+
+          if (verificarEmprestimoAtivo) {
+               throw new AppError("Esse usuario possui um emprestimo ativo",404);
+               
+          }
+
           let status;
 
           if (verificarID.status == 'ativo') {

@@ -73,7 +73,7 @@ class AutorControllers {
           const result = await this.autor_services.alterarAtivo(autor)
 
           res.status(200).json({
-               "message": "autor deletado com sucesso",
+               "message": "status alterado com sucesso",
                result
           })
 

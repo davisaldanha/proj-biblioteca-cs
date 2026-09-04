@@ -72,7 +72,7 @@ class CategoriaControllers {
                const result = await this.categoria_services.alterarAtivo(categoria)
 
                res.status(200).json({
-                    "message": "categoria deletada com sucesso",
+                    "message": "status alterado com sucesso",
                     result
                })
 

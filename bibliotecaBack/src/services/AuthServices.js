@@ -68,7 +68,7 @@ class AuthServices {
                telefone: usuario.telefone,
                data_nascimento: usuario.data_nascimento,
                endereco: usuario.endereco,
-               perfil: 'atendente',
+               perfil: 'admin',
                status: 'ativo'
           }
 

@@ -2,7 +2,11 @@ import prisma from '../database/prisma.js'
 
 class AutorRepositories {
      async visualizar () {
-          const result = await prisma.autor.findMany()
+          const result = await prisma.autor.findMany({
+               orderBy: {
+                    nome: 'asc'
+               }
+          })
 
           return result
      }
@@ -20,7 +24,7 @@ class AutorRepositories {
                data: {
                     nome: autor.nome,
                     nascionalidade: autor.nascionalidade,
-                    data_nascimento: autor.data_nascimento
+                    data_nascimento: new Date(autor.data_nascimento)
                }
           })
 
@@ -34,7 +38,7 @@ class AutorRepositories {
                data: {
                     nome: autor.nome,
                     nascionalidade: autor.nascionalidade,
-                    data_nascimento: autor.data_nascimento
+                    data_nascimento: new Date(autor.data_nascimento)
                }
           })
 

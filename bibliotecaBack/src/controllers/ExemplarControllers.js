@@ -78,7 +78,7 @@ class ExemplarControllers {
                const result = await this.exemplar_services.alterarAtivo(exemplar)
 
                res.status(200).json({
-                    "message": "exemplar deletado com sucesso",
+                    "message": "status alterado com sucesso",
                     result
                })
 

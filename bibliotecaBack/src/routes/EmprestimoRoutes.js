@@ -9,6 +9,6 @@ const EmprestimoRoutes = express.Router()
 
 EmprestimoRoutes.get('/', expressAsyncHandler(emprestimo_controllers.visualizar))
 EmprestimoRoutes.get('/:id', expressAsyncHandler(emprestimo_controllers.buscarPorID))
-EmprestimoRoutes.post('/', AuthMiddlewares, AdminMiddlewares, expressAsyncHandler(emprestimo_controllers.adicionar))
+EmprestimoRoutes.post('/', AuthMiddlewares, expressAsyncHandler(emprestimo_controllers.adicionar))
 
 export default EmprestimoRoutes

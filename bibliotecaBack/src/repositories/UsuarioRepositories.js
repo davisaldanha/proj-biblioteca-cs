@@ -14,6 +14,9 @@ class UsuarioRepositories {
                     endereco: true,
                     perfil: true,
                     status: true
+               },
+               orderBy: {
+                    nome: 'asc'
                }
           })
 
@@ -82,6 +85,18 @@ class UsuarioRepositories {
 
           return result
      }
+     async buscarPorEmprestimoAtivo (usuario) {
+          const result = await prisma.emprestimo.findFirst({
+               where: {
+                    status: {
+                         in: ['Em aberto', 'Em Atraso']
+                    },
+                    usuario_id: usuario.id
+               }
+          })
+
+          return result
+     }
      async adicionar (usuario) {
           const result = await prisma.usuario.create({
                data: {
@@ -90,7 +105,7 @@ class UsuarioRepositories {
                     email: usuario.email,
                     senha: usuario.senha,
                     telefone: usuario.telefone,
-                    data_nascimento: usuario.data_nascimento,
+                    data_nascimento: new Date(usuario.data_nascimento),
                     endereco: usuario.endereco,
                     perfil: usuario.perfil,
                     status: usuario.status
@@ -122,7 +137,7 @@ class UsuarioRepositories {
                     email: usuario.email,
                     senha: usuario.senha,
                     telefone: usuario.telefone,
-                    data_nascimento: usuario.data_nascimento,
+                    data_nascimento: new Date(usuario.data_nascimento),
                     endereco: usuario.endereco,
                     perfil: usuario.perfil,
                     status: usuario.status

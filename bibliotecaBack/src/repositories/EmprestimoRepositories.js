@@ -116,14 +116,30 @@ class EmprestimoRepositories {
 
           return result
      }
+     async alterarStatus () {
+          const result = await prisma.emprestimo.updateMany({
+               where: {
+                    data_devolucao_prev: {
+                         lt: new Date()
+                    },
+                    status: {
+                         in: ['Em aberto', 'Emprestado']
+                    }
+               },
+               data: {
+                    status: 'Em Atraso'
+               }
+          })
+
+          return result
+     }
      async adicionar (emprestimo) {
           const result = await prisma.$transaction(async (fx) => {
                const empres = await fx.emprestimo.create({
                     data: {
                          usuario_id: emprestimo.usuario_id,
                          funcionario_id: emprestimo.funcionario_id,
-                         data_devolucao_prev: emprestimo.data_devolucao_prev,
-                         data_devolucao: emprestimo.data_devolucao,
+                         data_devolucao_prev: new Date(emprestimo.data_devolucao_prev),
                          estado_conservacao: emprestimo.estado_conservacao,
                          status: emprestimo.status
                     },

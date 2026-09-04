@@ -19,6 +19,9 @@ class LivroRepositories {
                          }
                     },
                     autor: true
+               },
+               orderBy: {
+                    id: 'asc'
                }
           })
 

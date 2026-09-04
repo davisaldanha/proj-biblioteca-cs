@@ -22,6 +22,9 @@ class ExemplarRepositories {
                     estado_conservacao: true,
                     status: true,
                     ativo: true
+               },
+               orderBy: {
+                    cod_identificacao: 'asc'
                }
           })
 
@@ -79,7 +82,7 @@ class ExemplarRepositories {
                data: {
                     cod_identificacao: exemplar.cod_identificacao,
                     livro_id: exemplar.livro_id,
-                    data_aquisicao: exemplar.data_aquisicao,
+                    data_aquisicao: new Date(exemplar.data_aquisicao),
                     estado_conservacao: exemplar.estado_conservacao,
                     status: exemplar.status
                },
@@ -104,7 +107,7 @@ class ExemplarRepositories {
                data: {
                     cod_identificacao: exemplar.cod_identificacao,
                     livro_id: exemplar.livro_id,
-                    data_aquisicao: exemplar.data_aquisicao,
+                    data_aquisicao: new Date(exemplar.data_aquisicao),
                     estado_conservacao: exemplar.estado_conservacao,
                     status: exemplar.status
                },
